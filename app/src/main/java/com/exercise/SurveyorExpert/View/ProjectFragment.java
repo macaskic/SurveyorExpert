@@ -110,7 +110,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
                     + "FAILED" , Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
+       //     Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
             Log.d("EXPERT", " Shared Preference is ok");
 
             new GetResAndProj().execute();
@@ -145,68 +145,14 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
     }
 
 
-/*
-    @Override
-    public void onTabChanged(String tabId) {
-   //     Toast.makeText(getActivity(), "Project Fragment Selected Tab "+tabId, Toast.LENGTH_LONG).show();
-        //  Log.i("selected tab index", "Current index - "+ mTabHost.getCurrentTab());
-    }
 
-*/
         @Override
     public void onClick(View arg0) {
-            // NOT USED
+            // NOT USED BUT REQUIRED
      //  Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
     }
 
-    /*
-    private void goToMenu() {
 
-     //   Class myClass;
-
-        try {
-            // add extras
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String strChannel=preferences.getString("ONLINE","Default").toString();
-
-            //Toast.makeText(getApplicationContext(), "ONLINE = " + strChannel, Toast.LENGTH_LONG).show();
-
-            // TODO can we improve this
-//            myClass = Class.forName("com.surveyorexpert.ExpandableListMain");
- //           Intent ourIntent = new Intent(getActivity(), myClass);
-
-
-            bundle.putString("resource", resource);
-            bundle.putString("project", project);
-            bundle.putString("userName", userName);
-            bundle.putString("userId", userId);
-            bundle.putString("domain", domain);
-            bundle.putString("ONLINE", ONLINE);
-
-
-      //      startActivity(ourIntent);
-            //finish();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        // Context tab
-   //     ((AndroidMainActivity)getActivity()).switchFragment(1);
-
-   		Toast.makeText(Introduction.this,
-					"userName = " + userName +
-					"\n userId = " + userId +
-					"\n domain = " + domain +
-					"\n project = " + project +
-					"\n resource = " + resource +
-					"\n ONLINE = " + ONLINE ,
-					Toast.LENGTH_LONG).show();
-
-    }
-*/
     // add items into spinner dynamically
     public void addItemsOnProject() {
 
@@ -229,20 +175,8 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
 
     public void addItemsOnResource() {
 
-        //	Log.d("Introduction", "About to add items to Resource list" + Integer.toString(mResourceList.size()));
-        //	Log.d("Introduction", "About to add TMPLIST to Resource list" + Integer.toString(mTmpList.size()));
-
         Resource = (Spinner) rootView.findViewById(R.id.spEditSeverity);
         List<String> list = new ArrayList<String>();
-
-        //mResourceList. is a ArrayList of maps
-			/* CGM Check this out
-			for (int i = 0; i < mResourceList.size(); i++) {
-			   mOut = mResourceList.get(i);
-			   for (String key: mOut.keySet()) {
-				    list.add( mOut.get(key));
-			   }
-			}*/
 
         for (int i = 0; i < mTmpList.size(); i++) {
             mOut = mTmpList.get(i);
@@ -293,50 +227,10 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
                     spEditor.putString("project", project);
                     spEditor.apply();
                 }
-          //      spEditor.putString("domain", domain);
-          //      spEditor.putString("ONLINE", ONLINE);
 
-
-/*
-            Toast.makeText(getActivity(), "Clicked"
-                    + "\n resource: " + resource
-                    + "\n project: " + project
-                    , Toast.LENGTH_SHORT).show();
-
-                bundle.putString("resource", resource);
-                bundle.putString("project", project);
-                ((AndroidMainController)getActivity()).aSetTest(project);
-
-                if(bundle.getString("userName")!= null)
-                {
-                    userId = bundle.getString("userId");
-                    userName = bundle.getString("userName");
-                    domain = bundle.getString("domain");
-                    ONLINE = bundle.getString("ONLINE");
-                    resource = bundle.getString("resource");
-                    project = bundle.getString("project");
-
-                }
-                else{
-                    //   Toast.makeText(getActivity(), "Got Context Activity FAIL: " , Toast.LENGTH_LONG).show();
-                }
-
-
-        Toast.makeText(getActivity(), "Check Project Fragment Activity : " + ONLINE
-                + "\n message: " + ONLINE
-                + "\n userName: " + userName
-                + "\n userId: " + userId
-                + "\n domain: " + domain
-                + "\n resource: " + resource
-                + "\n project: " + project
-                //  , Toast.LENGTH_SHORT).show();
-                , Toast.LENGTH_LONG).show();
-         //       ((AndroidMainActivity)getActivity()).aGetTest();
-*/
                 // Switch to ContextFragment
                ((AndroidMainController)getActivity()).switchFragment(1);
 
-           //     goToMenu() ;
             }
         });
     }
