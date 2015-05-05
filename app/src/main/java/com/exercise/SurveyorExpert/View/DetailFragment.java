@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,47 +49,23 @@ public class DetailFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            /*
-            bundle = this.getActivity().getIntent().getExtras();
 
-            if(bundle.getString("userName")!= null)
-            {
-                userId = bundle.getString("userId");
-                userName = bundle.getString("userName");
-                domain = bundle.getString("domain");
-                ONLINE = bundle.getString("ONLINE");
+            Log.d("EXPERT", "Login Succeeded getting arguments");
+            preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            spEditor = preferences.edit();
+
+
+            if (spEditor == null){
+                Toast.makeText(getActivity(), "Oh No : "
+                        + "FAILED" , Toast.LENGTH_LONG).show();
             }
             else{
-                //   Toast.makeText(getActivity(), "Got Context Activity FAIL: " , Toast.LENGTH_LONG).show();
+
+                userId = preferences.getString("userId","Default").toString();
+                userName = preferences.getString("userName","Default").toString();
+                domain = preferences.getString("domain","Default").toString();
+                ONLINE = preferences.getString("ONLINE","Default").toString();
             }
-*/
-
-
-
-
-
-
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-          //  String strChannel= preferences.getString("TEST", "Default");
-         //   String strChannel1=preferences.getString("TEST1","Default").toString();
-/*
-            Toast.makeText(getActivity(), "good day  Got Context Activity : "
-                    + "\n Test = " + strChannel
-                    + "\n Test1 = " + strChannel1
-                    , Toast.LENGTH_LONG).show();
-                    */
-        /*
-        Toast.makeText(getActivity(), "Got Detail Activity : " + ONLINE
-                + "\n message: " + ONLINE
-                + "\n userName: " + userName
-                + "\n userId: " + userId
-                + "\n domain: " + domain
-              //  , Toast.LENGTH_SHORT).show();
-                , Toast.LENGTH_LONG).show();
-                */
-
-
         }
     }
 

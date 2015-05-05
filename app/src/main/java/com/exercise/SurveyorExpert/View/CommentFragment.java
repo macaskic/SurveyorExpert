@@ -11,7 +11,9 @@ package com.exercise.SurveyorExpert.View;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,23 @@ public class CommentFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             Toast.makeText(getActivity(), "Comment Fragment Visible ", Toast.LENGTH_LONG).show();
+        }
+        if (isVisibleToUser) {
+
+            Log.d("EXPERT", "Login Succeeded getting arguments");
+            preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            spEditor = preferences.edit();
+
+            if (spEditor == null){
+                Toast.makeText(getActivity(), "Oh No : "
+                        + "FAILED" , Toast.LENGTH_LONG).show();
+            }
+            else{
+                userId = preferences.getString("userId","Default").toString();
+                userName = preferences.getString("userName","Default").toString();
+                domain = preferences.getString("domain","Default").toString();
+                ONLINE = preferences.getString("ONLINE","Default").toString();
+            }
         }
     }
 }
