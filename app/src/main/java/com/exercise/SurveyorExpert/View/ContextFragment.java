@@ -137,8 +137,8 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
 
                 new GetDomainData().execute();
 
-                Toast.makeText(getActivity(), "OK : "
-                          + domain + " - "   + userId + " " + userName + " "  + resource + " " + project, Toast.LENGTH_LONG).show();
+          //      Toast.makeText(getActivity(), "OK : "
+          //                + domain + " - "   + userId + " " + userName + " "  + resource + " " + project, Toast.LENGTH_LONG).show();
 
             }
         }
@@ -152,7 +152,7 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
         protected void onPreExecute() {
             super.onPreExecute();
 
-            Toast.makeText(getActivity(), "Changed to Context onPreExecute domain = " + domain, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(getActivity(), "Changed to Context onPreExecute domain = " + domain, Toast.LENGTH_SHORT).show();
 
         }
 
@@ -205,7 +205,7 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
                         JSONObject c = mComponent.getJSONObject(i);
                         mbcodes[i] = c.getString(TAG_ELEMENT_ID);
                         descriptions[i] = c.getString(TAG_ELEMENT);
-              //          values[i] = descriptions[i] + " NBC = " + mbcodes[i];
+                        values[i] = descriptions[i]; // + " NBC = " + mbcodes[i];
                     }
                     json.getString(TAG_SUCCESS);
 
@@ -225,8 +225,10 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
         void createList(){
             final ListView listView ;
             listView = (ListView) rootView.findViewById(R.id.list);
-            String[] values = new String[] { "Android List View", "Adapter implementation", "Simple List View In Android",
-                    "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View" };
+
+
+          //  String[] values = new String[] { "Android List View", "Adapter implementation", "Simple List View In Android",
+          //          "Create List View Android", "Android Example", "List View Source Code", "List View Array Adapter", "Android Example List View" };
 
             // Define a new Adapter
             // First parameter - Context
