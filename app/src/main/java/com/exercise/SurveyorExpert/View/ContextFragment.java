@@ -82,6 +82,7 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
 
       //  View
         rootView = inflater.inflate(R.layout.fragment_context, container, false);
+        /*
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         spEditor = preferences.edit();
         if (spEditor == null || preferences == null){
@@ -94,7 +95,7 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
             Log.d("EXPERT", " Shared Preference is ok");
            // new GetDomainData().execute();
         }
-
+        */
         return rootView;
     }
 
@@ -107,8 +108,8 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
 
             Log.d("EXPERT", "Project Succeeded getting arguments");
             //      Toast.makeText(getActivity(), "Context Fragment Preview", Toast.LENGTH_SHORT).show();
-            //      preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            //     spEditor = preferences.edit();
+            preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            spEditor = preferences.edit();
 
 
             if (spEditor == null || preferences == null){
@@ -143,18 +144,6 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
         }
     }
 
-/*
-    @Override
-    public void onClick(View arg0) {
-        // not used
-    }
-    @Override
-    public void onTabChanged(String tabId) {
-      //  Toast.makeText(getActivity(), "Context Fragment Selected Tab "+tabId, Toast.LENGTH_LONG).show();
-        //  Log.i("selected tab index", "Current index - "+ mTabHost.getCurrentTab());
-    }
-*/
-
 
     /************************************* Get DATA  *********************************/
     class GetDomainData extends AsyncTask<String, String, String> {
@@ -163,32 +152,8 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
         protected void onPreExecute() {
             super.onPreExecute();
 
-            /*
-            bundle = getActivity().getIntent().getExtras();
-            userName =  bundle.getString("userName") ;
-            userId =  bundle.getString("userId") ;
-            domain = bundle.getString("domain") ;
-            ONLINE =  bundle.getString("ONLINE") ;
-            */
-
             Toast.makeText(getActivity(), "Changed to Context onPreExecute domain = " + domain, Toast.LENGTH_SHORT).show();
-/*
-            Toast.makeText(getActivity(),
-                    "Context onPreExecute \n userName = " + userName +
-                            "\n userId = " +  userId +
-                            "\n domain = " + domain +
-                            "\n ONLINE = " + ONLINE,
-                    Toast.LENGTH_LONG).show();
-*/
 
-			/*
-			Toast.makeText(getApplicationContext(),
-					"GetDomainData  onPreExecute \nDomain = " + domain
-					+ "\n user_id = " + user_id
-					+ "\n parentPos = " + parentPos
-					+ "\n childPos = " + childPos,
-					Toast.LENGTH_LONG).show();
-					*/
         }
 
         @Override
@@ -200,7 +165,6 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
  //           jsonParams.add(new BasicNameValuePair("parentPos", parentPos));
 
             Log.d("EXPERT", "domain = " + domain + " parentPos:  " + parentPos);
-            //
 
             addItemsOnComponent();
 
@@ -255,29 +219,6 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
         protected void onPostExecute(String file_url) {
         //    Toast.makeText(getActivity(), "Changed to Context onPostExecute", Toast.LENGTH_SHORT).show();
             createList();
-
-/*
-            Toast.makeText(getActivity(),
-                    "Login \n userName = " + preferences.getString("userName","") +
-                            "\n user_id = " +  preferences.getString("userId","") +
-                            "\n domain = " + preferences.getString("domain","") +
-                            "\n ONLINE = " + preferences.getString("ONLINE","") ,
-                    Toast.LENGTH_LONG).show();
-                    */
-/*
-            Toast.makeText(getActivity(),
-                    "Login \n userName = "  + userName +
-                            "\n user_id = " + userId +
-                            "\n domain = " + domain +
-                            "\n ONLINE = " + ONLINE ,
-                    Toast.LENGTH_LONG).show();
-*/
-
-
-
-		//	Toast.makeText(getActivity(),
-         //           "GetDomainData  onPost Execute \nDomain = ",
-          //          Toast.LENGTH_SHORT).show();
 
         }
 
