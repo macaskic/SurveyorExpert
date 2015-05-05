@@ -92,7 +92,7 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
         else {
             Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
             Log.d("EXPERT", " Shared Preference is ok");
-            new GetDomainData().execute();
+           // new GetDomainData().execute();
         }
 
         return rootView;
@@ -117,8 +117,8 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
                         + "FAILED" , Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
-                Log.d("EXPERT", "In Context Hint - Shared Preference is ok");
+             //   Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
+
 
                 try {
                     userId = preferences.getString("userId","Default").toString();
@@ -127,12 +127,17 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
                     ONLINE = preferences.getString("ONLINE","Default").toString();
                     resource = preferences.getString("resource", "Default").toString();
                     project =  preferences.getString("project", "Default").toString();
+                    domain = preferences.getString("domain","Default").toString();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
+                Log.d("EXPERT", "In Context Hint - Shared Preference is ok - domain = " + domain);
+
+                new GetDomainData().execute();
+
                 Toast.makeText(getActivity(), "OK : "
-                             + userId + " " + userName + " "  + resource + " " + project, Toast.LENGTH_LONG).show();
+                          + domain + " - "   + userId + " " + userName + " "  + resource + " " + project, Toast.LENGTH_LONG).show();
 
             }
         }
@@ -166,7 +171,7 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
             ONLINE =  bundle.getString("ONLINE") ;
             */
 
-      //      Toast.makeText(getActivity(), "Changed to Context onPreExecute", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Changed to Context onPreExecute domain = " + domain, Toast.LENGTH_SHORT).show();
 /*
             Toast.makeText(getActivity(),
                     "Context onPreExecute \n userName = " + userName +
@@ -192,12 +197,11 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
             json = new JSONObject();
             jsonParams = new ArrayList<NameValuePair>();
             jsonParams.add(new BasicNameValuePair("domain", domain));
- /*           jsonParams.add(new BasicNameValuePair("parentPos", parentPos));
+ //           jsonParams.add(new BasicNameValuePair("parentPos", parentPos));
 
-            Log.d("Detail List View - do in back ground ",
-                    "domain = " + domain + " parentPos:  " + parentPos);
+            Log.d("EXPERT", "domain = " + domain + " parentPos:  " + parentPos);
             //
-            */
+
             addItemsOnComponent();
 
             return null;
