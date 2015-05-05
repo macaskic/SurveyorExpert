@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/building"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/ivIntroLogo"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/notes"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.08" />
+
+    <TextView
+        android:id="@+id/tvOrganisationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Organisation"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tvEditSeverityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Resource and Project"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal" />
+
+    <Spinner
+        android:id="@+id/spEditSeverity"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Spinner
+        android:id="@+id/spEditEstimate"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/bIntroEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
