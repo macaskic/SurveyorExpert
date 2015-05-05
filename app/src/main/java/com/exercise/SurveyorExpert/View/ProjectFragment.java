@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by calum on 19/11/2014.
+ * ProjectFragment created by Calum Macaskill on 19/11/2014.
  */
 
 public class ProjectFragment extends Fragment implements View.OnClickListener/*, TabHost.OnTabChangeListener */ {
@@ -51,7 +51,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
     private ImageView logo;
     private Button enter;
     private Spinner Resource, Project;
-    private String userId, userName, domain, ONLINE;
+    private String userId, userName, domain, ONLINE = "";
     private int success = 0;
     private static int count = 0;
 
@@ -159,30 +159,31 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
      //  Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
     }
 
+    /*
     private void goToMenu() {
 
      //   Class myClass;
 
         try {
             // add extras
-/*
+
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             String strChannel=preferences.getString("ONLINE","Default").toString();
 
             //Toast.makeText(getApplicationContext(), "ONLINE = " + strChannel, Toast.LENGTH_LONG).show();
-*/
+
             // TODO can we improve this
 //            myClass = Class.forName("com.surveyorexpert.ExpandableListMain");
  //           Intent ourIntent = new Intent(getActivity(), myClass);
 
-            /*
+
             bundle.putString("resource", resource);
             bundle.putString("project", project);
             bundle.putString("userName", userName);
             bundle.putString("userId", userId);
             bundle.putString("domain", domain);
             bundle.putString("ONLINE", ONLINE);
-*/
+
 
       //      startActivity(ourIntent);
             //finish();
@@ -194,7 +195,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
 
         // Context tab
    //     ((AndroidMainActivity)getActivity()).switchFragment(1);
-		/*
+
    		Toast.makeText(Introduction.this,
 					"userName = " + userName +
 					"\n userId = " + userId +
@@ -203,9 +204,9 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
 					"\n resource = " + resource +
 					"\n ONLINE = " + ONLINE ,
 					Toast.LENGTH_LONG).show();
-		*/
-    }
 
+    }
+*/
     // add items into spinner dynamically
     public void addItemsOnProject() {
 
