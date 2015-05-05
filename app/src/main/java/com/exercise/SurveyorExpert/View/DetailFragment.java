@@ -24,15 +24,65 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.exercise.AndroidViewPager.R;
+import com.exercise.SurveyorExpert.Model.JSONParser;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DetailFragment extends Fragment {
-    View rootView;
 
     // Share variables between fragments
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor spEditor = null;
+    
+    ListView listView ;
+    private String resource, project, userName;
+    private String retMessage, userId, domain, itemValue, mbcode, description;
+    private String childPos, parentPos, nbcMarker, nbcDescription, ONLINE, section, element;
+    private int success = 0;
+    private String[] mbcodes = null;
+    private String[] descriptions = null;
+    private String[] values = null;
 
-    private String userId, userName, domain, ONLINE;
+    ArrayAdapter<String> adapter = null;
+
+    private static final String READ_COMPONENT_URL
+            //   = "http://www.surveyorexpert.com/webservice/getComponent2.php";
+            = "http://www.surveyorexpert.com/webservice/getElement2.php";
+
+    // JSON IDS:
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_POSTS = "posts";
+    private static final String TAG_ELEMENT = "element";
+    private static final String TAG_ELEMENT_ID = "element_id";
+    private static final String TAG_SECTION = "section";
+    private static final String TAG_SECTION_ID = "section_id";
+    private static final String TAG_MBCODE= "mbcode";
+    private static final String TAG_DESCRIPTION = "description";
+
+    private JSONObject json  = null;
+    private List<NameValuePair> jsonParams = null;
+    private JSONParser jsonParser = new JSONParser();
+
+    private JSONArray mComponent = null;
+    private ArrayList<HashMap<String, String>> mComponentList;
+
+    private HashMap<String, String> mOut = null;
+    List<String> elemList = new ArrayList<String>();
+    List<String> sectList = new ArrayList<String>();
+    List<String> compList = new ArrayList<String>();
+
+    HashMap<String, String> mapComponentIndex = new HashMap<String, String>();
+    private String state;
+    private View rootView = null;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
