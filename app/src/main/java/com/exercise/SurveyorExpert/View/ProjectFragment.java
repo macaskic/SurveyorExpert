@@ -103,11 +103,18 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
         enter.setOnClickListener(this);
 
         logo = (ImageView) rootView.findViewById(R.id.ivIntroLogo);
-     //   SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-     //   SharedPreferences.Editor spEditor = preferences.edit();
 
+        if (spEditor == null || preferences == null){
+            Log.d("EXPERT", "Shared Preference Failure");
+            Toast.makeText(getActivity(), "Oh No : "
+                    + "FAILED" , Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
+            Log.d("EXPERT", " Shared Preference is ok");
 
-        new GetResAndProj().execute();
+            new GetResAndProj().execute();
+        }
 
         return rootView;
     }
@@ -116,28 +123,11 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-/*
-            bundle = this.getActivity().getIntent().getExtras();
-            if(bundle.getString("userName")!= null)
-            {
 
-                userId = bundle.getString("userId");
-                userName = bundle.getString("userName");
-                domain = bundle.getString("domain");
-                ONLINE = bundle.getString("ONLINE");
-
-            }
-            else{
-                //     Toast.makeText(getActivity(), "Got Project Activity FAIL: " , Toast.LENGTH_LONG).show();
-            }
-*/
-
-         //   Toast.makeText(getActivity(), "Project Fragment Visible ", Toast.LENGTH_LONG).show();
 
             Log.d("EXPERT", "Login Succeeded getting arguments");
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             spEditor = preferences.edit();
-
 
 
             if (spEditor == null){
@@ -150,27 +140,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
                 userName = preferences.getString("userName","Default").toString();
                 domain = preferences.getString("domain","Default").toString();
                 ONLINE = preferences.getString("ONLINE","Default").toString();
-
-
             }
-
-            //spEditor.putString("TEST1", "Test2");
-
-        //    Toast.makeText(getActivity(), "Hello Got Project Activity : "
-        //            + strChannel , Toast.LENGTH_LONG).show();
-
-/*
-            Toast.makeText(getActivity(), "Hello Got Project Activity : " + ONLINE
-                    + "\n message: " + ONLINE
-                    + "\n userName: " + userName
-                    + "\n userId: " + userId
-                    + "\n domain: " + domain
-                    //  , Toast.LENGTH_SHORT).show();
-                    , Toast.LENGTH_LONG).show();
-*/
-
-        }
-        else {
         }
     }
 
@@ -320,6 +290,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
                 else {
                     spEditor.putString("resource", resource);
                     spEditor.putString("project", project);
+                    spEditor.apply();
                 }
           //      spEditor.putString("domain", domain);
           //      spEditor.putString("ONLINE", ONLINE);
