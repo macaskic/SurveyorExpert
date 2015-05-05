@@ -11,6 +11,7 @@
 package com.exercise.SurveyorExpert.View;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,11 @@ import android.widget.Toast;
 import com.exercise.AndroidViewPager.R;
 
 public class ReportFragment extends Fragment implements View.OnClickListener {
+
+    // Share variables between fragments
+    private SharedPreferences preferences = null;
+    private SharedPreferences.Editor spEditor = null;
+
     View rootView = null;
     private Bundle bundle = null;
     private String userId, userName, domain, ONLINE;

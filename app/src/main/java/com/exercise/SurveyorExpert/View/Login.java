@@ -38,6 +38,7 @@ public class Login extends Activity implements OnClickListener {
     // Share variables between fragments
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor spEditor = null;
+
     private EditText user, pass;
     private Button mSubmit, mRegister;
     private String userName, user_id, domain, ONLINE;
@@ -111,7 +112,7 @@ public class Login extends Activity implements OnClickListener {
         @Override
         protected String doInBackground(String... args) {
             // Check for success tag
-            Intent i = null;
+            Intent i;
             int success = 0;
             JSONObject json = new JSONObject();
             String username = user.getText().toString();

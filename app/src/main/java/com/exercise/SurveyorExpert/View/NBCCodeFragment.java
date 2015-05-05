@@ -8,6 +8,7 @@
 
 package com.exercise.SurveyorExpert.View;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,6 +22,11 @@ import android.widget.Toast;
 import com.exercise.AndroidViewPager.R;
 
 public class NBCCodeFragment extends Fragment {
+
+// Share variables between fragments
+    private SharedPreferences preferences = null;
+    private SharedPreferences.Editor spEditor = null;
+
     View rootView = null;
     private Bundle bundle = null;
     private String userId, userName, domain, ONLINE;
