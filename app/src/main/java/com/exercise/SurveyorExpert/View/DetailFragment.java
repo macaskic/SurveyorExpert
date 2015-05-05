@@ -1,7 +1,7 @@
 //package info.androidhive.tabsswipe;
 //
 ///**
-// * Created by calum on 19/11/2014.
+// * DetailFragment created by Calum Macaskill on 19/11/2014.
 // */
 //public class DetailFragment {
 //}
@@ -96,10 +96,6 @@ public class DetailFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // ListView Clicked item index
-               // int itemPosition     = position;
-
-                // ListView Clicked item value
                 String itemValue    = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
@@ -108,13 +104,22 @@ public class DetailFragment extends Fragment {
                         .show();
 
             }
-
-
         });
     }
-
-
-
-
-
 }
+
+
+
+/*
+            userId = preferences.getString("userId", "");
+            userName = preferences.getString("userName", "");
+            domain = preferences.getString("domain", "");
+            ONLINE = preferences.getString("ONLINE", "");
+
+            Toast.makeText(getActivity(), "Got Project Activity : " + ONLINE
+                    + "\n userName: " + userName
+                    + "\n userId: " + userId
+                    + "\n domain: " + domain
+                    , Toast.LENGTH_SHORT).show();
+*/
+
