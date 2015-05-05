@@ -250,20 +250,24 @@ public class ContextFragment extends Fragment /* implements  View.OnClickListene
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
 
-                    // ListView Clicked item index
-                   // int itemPosition     = position;
+                    /*
+                   ListView Clicked item index
+                   int itemPosition     = position;
+                   ListView Clicked item value
+                   */
 
-                    // ListView Clicked item value
                     String itemValue    = (String) listView.getItemAtPosition(position);
 
                     // Show Alert
+                    //Toast.makeText(getActivity(),
+                    //       /* "Position :" + itemPosition + */ "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                    //        .show();
+
+
                     Toast.makeText(getActivity(),
-                           /* "Position :" + itemPosition + */ "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                            .show();
-
+                             "ListItem : " + itemValue  + " CODE = " +   mbcodes[position] + " DESC = "
+                                     +  descriptions[position], Toast.LENGTH_LONG).show();
                 }
-
-
             });
         }
     }
