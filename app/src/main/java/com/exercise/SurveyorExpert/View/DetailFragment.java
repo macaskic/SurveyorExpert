@@ -39,7 +39,7 @@ public class DetailFragment extends Fragment {
     // Share variables between fragments
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor spEditor = null;
-    
+
     ListView listView ;
     private String resource, project, userName;
     private String retMessage, userId, domain, itemValue, mbcode, description;
