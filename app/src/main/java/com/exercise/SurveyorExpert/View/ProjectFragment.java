@@ -105,13 +105,13 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
         logo = (ImageView) rootView.findViewById(R.id.ivIntroLogo);
 
         if (spEditor == null || preferences == null){
-            Log.d("EXPERT", "Shared Preference Failure");
+            Log.d("SurveyorExpert", "Shared Preference Failure");
             Toast.makeText(getActivity(), "Oh No : "
                     + "FAILED" , Toast.LENGTH_LONG).show();
         }
         else {
        //     Toast.makeText(getActivity(), "Context Fragment", Toast.LENGTH_SHORT).show();
-            Log.d("EXPERT", " Shared Preference is ok");
+            Log.d("SurveyorExpert", " Shared Preference is ok");
 
             new GetResAndProj().execute();
         }
@@ -125,7 +125,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
         if (isVisibleToUser) {
 
 
-            Log.d("EXPERT", "Login Succeeded getting arguments");
+            Log.d("SurveyorExpert", "Login Succeeded getting arguments");
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             spEditor = preferences.edit();
 
@@ -242,6 +242,7 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            Log.d("SurveyorExpert", "Try creating ProjectFragment................");
 /*
             userId = preferences.getString("userId", "");
             userName = preferences.getString("userName", "");
@@ -260,14 +261,18 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
         @Override
         protected String doInBackground(String... args) {
 
-            json = new JSONObject();
-            jsonParams = new ArrayList<NameValuePair>();
-            jsonParams.add(new BasicNameValuePair("userId", userId));
+            try {
+                json = new JSONObject();
+                jsonParams = new ArrayList<NameValuePair>();
+                jsonParams.add(new BasicNameValuePair("userId", userId));
 
-                    populateResourceList();
-                    populateProjectList();
-                    populateOrganisation();
-                    populateLogo();
+                populateResourceList();
+                populateProjectList();
+                populateOrganisation();
+                populateLogo();
+            } catch (Exception e) {
+               // e.printStackTrace();
+            }
 
             return null;
         }
@@ -412,6 +417,5 @@ public class ProjectFragment extends Fragment implements View.OnClickListener/*,
             }
         }
     }
-
 }
 //      Toast.makeText(getActivity(), "Login", Toast.LENGTH_SHORT).show();
