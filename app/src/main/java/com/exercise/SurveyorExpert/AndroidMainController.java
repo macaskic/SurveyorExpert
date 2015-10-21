@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ public class AndroidMainController extends FragmentActivity /*TabActivity*/ impl
 
 */
 
-     public void aSetTest(String arg){
+    public void aSetTest(String arg){
         testString = arg;
      }
     public String aGetTest(){
@@ -70,6 +71,9 @@ public class AndroidMainController extends FragmentActivity /*TabActivity*/ impl
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+   //     isInternetOn();
+
 
         mTabsAdapter = new TabsAdapter(this, mViewPager);
   //       mNewTabsAdapter = new NewTabsAdapter(this, mViewPager);
@@ -150,9 +154,10 @@ public class AndroidMainController extends FragmentActivity /*TabActivity*/ impl
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
         }
+        Log.w("SurveyorExpert", "Android Main Controller successfully Created");
     }
 
-
+// end onCreate
     public void onTabChanged(String tabId) {
     //    Toast.makeText(getApplicationContext(), "Main Activity Selected Tab "+tabId, Toast.LENGTH_LONG).show();
       //  Log.i("selected tab index", "Current index - "+ mTabHost.getCurrentTab());
@@ -268,6 +273,35 @@ public class AndroidMainController extends FragmentActivity /*TabActivity*/ impl
 		}
 
 	}
+/*
+    public final boolean isInternetOn() {
+
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
+
+            // if connected with internet
+
+            Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+
+            Toast.makeText(this, " Not Connected ", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return false;
+    }
+
+*/
 
 
 }
