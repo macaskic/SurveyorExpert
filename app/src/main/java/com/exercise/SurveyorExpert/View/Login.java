@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.net.ConnectivityManager;
 
 import com.exercise.AndroidViewPager.R;
 import com.exercise.SurveyorExpert.AndroidMainController;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.Toast;
 
 //import android.graphics.Color;
 //import android.widget.Toast;
@@ -126,19 +128,30 @@ public class Login extends Activity implements OnClickListener {
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("username", username));
                 params.add(new BasicNameValuePair("password", password));
-                Log.d("EXPERT", "Attempt Login");
+                Log.d("SurveyorExpert", "Attempt Login");
 
                 // getting product details by making HTTP request
                 try{
+                    Log.d("SurveyorExpert", "Look for internet ");
+                    if( isInternetOn()) {
+                        Log.d("SurveyorExpert", "Internet connection OK");
+                        json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
+                        success = json.getInt(TAG_SUCCESS);
+                        ONLINE = "true";
+                    }
+                    else{
+                        Log.d("SurveyorExpert", "Internet connection FAILED");
+                        ONLINE = "Not connected to internet";
+                        success = 0;
+                    }
 
-                    json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
-                    success = json.getInt(TAG_SUCCESS);
-                    ONLINE = "true";
+
                  //   Toast.makeText(Login.this, "Attempt Login", Toast.LENGTH_LONG).show();
 
                 } catch(Exception e){
                     ONLINE = "false";
-                    Log.d("EXPERT", "Login failed");
+                    success = 0;
+                    Log.d("SurveyorExpert", "Login failed");
                     spEditor.putString("ONLINE", "false");
                     spEditor.apply();
                     //	e.printStackTrace();
@@ -158,6 +171,13 @@ public class Login extends Activity implements OnClickListener {
                         i = new Intent(Login.this, AndroidMainController.class);
                     }
 
+                    Log.d("SurveyorExpert","Login with LOGIN_URL " +  LOGIN_URL);
+                    Log.d("SurveyorExpert","Login with user_name " +  userName);
+                    Log.d("SurveyorExpert","Login with user_id " +  user_id);
+                    Log.d("SurveyorExpert","Login with domain " +  domain);
+                    Log.d("SurveyorExpert","Login with ONLINE has been set to " +  ONLINE);
+
+
                     spEditor.putString("userName", userName);
                     spEditor.putString("userId", user_id);
                     spEditor.putString("domain", domain);
@@ -165,14 +185,14 @@ public class Login extends Activity implements OnClickListener {
 
                     spEditor.apply();
 
-                    Log.d("EXPERT","Login Ok with " +  json.getString(TAG_MESSAGE));
+                    Log.d("SurveyorExpert","Login Ok with " +  json.getString(TAG_MESSAGE));
                     finish();
                     startActivity(i);
 
                     return json.getString(TAG_MESSAGE);
                 } else {
 
-                    Log.d("EXPERT", "Login failed starting admin");
+                    Log.d("SurveyorExpert", "Login failed starting admin");
                     //	Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
                     // to get rid of warning
                     // i = new Intent(Login.this, AdminIntroduction.class);
@@ -200,6 +220,55 @@ public class Login extends Activity implements OnClickListener {
             pDialog.dismiss();
         }
     }
+
+
+    public final boolean isInternetOn() {
+
+        Log.d("SurveyorExpert", "In method isInternetOn ");
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                null;
+        try {
+            connec = (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+            Log.d("SurveyorExpert", "In method isInternetOn getting context " + connec.toString());
+        } catch (Exception e) {
+            Log.d("SurveyorExpert", "In method isInternetOn exception getting context");
+            e.printStackTrace();
+        }
+
+        // Check for network connections
+
+        try {
+            Log.d("SurveyorExpert", "LOOK AT THIS - OK ");
+
+            Log.d("SurveyorExpert", " android.net.NetworkInfo.State.CONNECTED = " +  android.net.NetworkInfo.State.CONNECTED );
+            Log.d("SurveyorExpert", " android.net.NetworkInfo.State.CONNECTED = " +  android.net.NetworkInfo.State.CONNECTING);
+            Log.d("SurveyorExpert", " connec.getNetworkInfo(1).getState() " +  connec.getNetworkInfo(0).getState().toString());
+            Log.d("SurveyorExpert", " connec.getNetworkInfo(1).getState() " +  connec.getNetworkInfo(0).getState().toString());
+            if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                    connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                    connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                    connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
+
+                // if connected with internet
+                Log.d("SurveyorExpert", "In method isInternetOn OK ");
+            //    Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
+                return true;
+
+            } else if (
+                    connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                            connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+                Log.d("SurveyorExpert", "In method isInternetOn FAIL");
+              //  Toast.makeText(this, " Not Connected ", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (Exception e) {
+            Log.d("SurveyorExpert", "In method isInternetOn FAIL");
+          //  e.printStackTrace();
+        }
+        return false;
+    }
+
 
     void message(){
         /*
