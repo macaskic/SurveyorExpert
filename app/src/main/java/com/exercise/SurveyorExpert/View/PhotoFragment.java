@@ -31,7 +31,7 @@ public class PhotoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Log.d("SurveyorExpert", "Try creating PhotoFragment");
     //    View rootView = inflater.inflate(R.layout.fragment_photo, container, false);
     //    return rootView;
         return inflater.inflate(R.layout.fragment_photo, container, false);
@@ -45,7 +45,7 @@ public class PhotoFragment extends Fragment {
         }
         if (isVisibleToUser) {
 
-            Log.d("EXPERT", "Login Succeeded getting arguments");
+            Log.d("SurveyorExpert", "Login Succeeded getting arguments");
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             spEditor = preferences.edit();
 
