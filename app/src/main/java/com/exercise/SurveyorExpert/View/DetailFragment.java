@@ -2,6 +2,7 @@
 //
 ///**
 // * DetailFragment created by Calum Macaskill on 19/11/2014.
+// * Git push
 // */
 //public class DetailFragment {
 //}
@@ -10,6 +11,7 @@
 package com.exercise.SurveyorExpert.View;
 
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -80,7 +82,7 @@ public class DetailFragment extends Fragment {
     HashMap<String, String> mapComponentIndex = new HashMap<String, String>();
     private String state;
     private View rootView = null;
-
+    private SQLiteDatabase db;
 
 
     @Override
@@ -101,6 +103,14 @@ public class DetailFragment extends Fragment {
         if (isVisibleToUser) {
 
             Log.d("EXPERT", "Login Succeeded getting arguments");
+
+//            try {
+//                db =  getActivity().openOrCreateDatabase("DATABASE",android.content.Context.MODE_PRIVATE ,null);
+//                db.execSQL("CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,name VARCHAR,marks VARCHAR);");
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             spEditor = preferences.edit();
 
