@@ -2,6 +2,7 @@ package com.exercise.SurveyorExpert.View;
 
 /**
  * Login screen created by Calum Macaskill on 25/11/2014.
+ *  Git test
  */
 
 import android.app.Activity;
@@ -9,6 +10,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,7 +22,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.net.ConnectivityManager;
 
 import com.exercise.AndroidViewPager.R;
 import com.exercise.SurveyorExpert.AndroidMainController;
@@ -30,13 +34,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.widget.Toast;
 
 //import android.graphics.Color;
 //import android.widget.Toast;
 
 public class Login extends Activity implements OnClickListener {
 
+    private SQLiteDatabase db;
     // Share variables between fragments
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor spEditor = null;
@@ -77,6 +81,17 @@ public class Login extends Activity implements OnClickListener {
         // register listeners
         mSubmit.setOnClickListener(this);
         mRegister.setOnClickListener(this);
+
+        try {
+
+         //   getApplication().deleteDatabase("SEDB.db");
+            db =  getApplication().openOrCreateDatabase("SEDB.db",android.content.Context.MODE_PRIVATE ,null);
+            db.execSQL(String.format("CREATE TABLE IF NOT EXISTS users(user_id varchar(11), username varchar(64), password text, company varchar(64), logo_name varchar(20), domain_name varchar(30));"));
+            //    Log.w("SurveyorExpert", "Login Successfully created Database and open = " +  db.isOpen());
+        } catch (SQLException e) {
+            Log.w("SurveyorExpert", "Create Database failed");
+            e.printStackTrace();
+        }
 
     }
 
@@ -133,7 +148,8 @@ public class Login extends Activity implements OnClickListener {
                 // getting product details by making HTTP request
                 try{
                     Log.d("SurveyorExpert", "Look for internet ");
-                    if( isInternetOn()) {
+   // TODO sort out connectivity logic
+                    if( true /*isInternetOn()*/) {
                         Log.d("SurveyorExpert", "Internet connection OK");
                         json = jsonParser.makeHttpRequest(LOGIN_URL, "POST", params);
                         success = json.getInt(TAG_SUCCESS);
@@ -171,19 +187,30 @@ public class Login extends Activity implements OnClickListener {
                         i = new Intent(Login.this, AndroidMainController.class);
                     }
 
-                    Log.d("SurveyorExpert","Login with LOGIN_URL " +  LOGIN_URL);
-                    Log.d("SurveyorExpert","Login with user_name " +  userName);
-                    Log.d("SurveyorExpert","Login with user_id " +  user_id);
-                    Log.d("SurveyorExpert","Login with domain " +  domain);
-                    Log.d("SurveyorExpert","Login with ONLINE has been set to " +  ONLINE);
+                    try {
+                   // TODO  insert into local user table
+                        db.execSQL("INSERT INTO users(username, password, domain_name)" +
+                                " VALUES('"+user_id+"','"+user_id +
+                                "','"+ domain+"');");
+                        Log.w("SurveyorExpert", "Insert OK " + user_id + "  "  + domain );
+                    } catch (SQLException e) {
+                        Log.w("SurveyorExpert","Insert FAIL");
+                        e.printStackTrace();
+                    }
+// TODO This can probably go
+//                    Log.d("SurveyorExpert","Login with LOGIN_URL " +  LOGIN_URL);
+//                    Log.d("SurveyorExpert","Login with user_name " +  userName);
+//                    Log.d("SurveyorExpert","Login with user_id " +  user_id);
+//                    Log.d("SurveyorExpert","Login with domain " +  domain);
+//                    Log.d("SurveyorExpert","Login with ONLINE has been set to " +  ONLINE);
 
 
-                    spEditor.putString("userName", userName);
-                    spEditor.putString("userId", user_id);
-                    spEditor.putString("domain", domain);
-                    spEditor.putString("ONLINE", ONLINE);
-
-                    spEditor.apply();
+//                    spEditor.putString("userName", userName);
+//                    spEditor.putString("userId", user_id);
+//                    spEditor.putString("domain", domain);
+//                    spEditor.putString("ONLINE", ONLINE);
+//
+//                    spEditor.apply();
 
                     Log.d("SurveyorExpert","Login Ok with " +  json.getString(TAG_MESSAGE));
                     finish();
@@ -226,11 +253,22 @@ public class Login extends Activity implements OnClickListener {
 
         Log.d("SurveyorExpert", "In method isInternetOn ");
         // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                null;
+        ConnectivityManager connManager  = null;
         try {
-            connec = (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-            Log.d("SurveyorExpert", "In method isInternetOn getting context " + connec.toString());
+            connManager  = (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+            Log.d("SurveyorExpert", "In method isInternetOn getting context " + connManager.toString());
+            NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+            if (mWifi.isConnected()) {
+                // Do whatever
+                Log.d("SurveyorExpert", "In method isInternetOn (mWifi.isConnected() =  " + mWifi.isConnected());
+            }
+            else{
+                Log.d("SurveyorExpert", "In method isInternetOn (mWifi.isConnected() =  " + mWifi.isConnected());
+            }
+
+
+
         } catch (Exception e) {
             Log.d("SurveyorExpert", "In method isInternetOn exception getting context");
             e.printStackTrace();
@@ -243,21 +281,22 @@ public class Login extends Activity implements OnClickListener {
 
             Log.d("SurveyorExpert", " android.net.NetworkInfo.State.CONNECTED = " +  android.net.NetworkInfo.State.CONNECTED );
             Log.d("SurveyorExpert", " android.net.NetworkInfo.State.CONNECTED = " +  android.net.NetworkInfo.State.CONNECTING);
-            Log.d("SurveyorExpert", " connec.getNetworkInfo(1).getState() " +  connec.getNetworkInfo(0).getState().toString());
-            Log.d("SurveyorExpert", " connec.getNetworkInfo(1).getState() " +  connec.getNetworkInfo(0).getState().toString());
-            if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                    connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                    connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                    connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
+          // Log.d("SurveyorExpert", " connec.getNetworkInfo(1).getState() " +  connec.getNetworkInfo(0).getState().toString());
+         //   Log.d("SurveyorExpert", " connec.getNetworkInfo(1).getState() " +  connec.getNetworkInfo(0).getState().toString());
+//            if ( connManager.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+//                    connManager.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+//                    connManager.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+//                    connManager.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
 
+            if(0=="CONNECTED".compareTo(android.net.NetworkInfo.State.CONNECTED.toString())){
                 // if connected with internet
-                Log.d("SurveyorExpert", "In method isInternetOn OK ");
+                Log.d("SurveyorExpert", "In method isInternetOn OK  CONNECTED TO INTERNET ");
             //    Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
                 return true;
 
             } else if (
-                    connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                            connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+                    connManager.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                            connManager.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
                 Log.d("SurveyorExpert", "In method isInternetOn FAIL");
               //  Toast.makeText(this, " Not Connected ", Toast.LENGTH_LONG).show();
                 return false;
