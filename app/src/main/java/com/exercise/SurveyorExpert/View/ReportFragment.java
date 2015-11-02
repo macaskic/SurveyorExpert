@@ -29,7 +29,6 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor spEditor = null;
 
-
     private Button  mTestMe;
     View rootView = null;
     private Bundle bundle = null;
@@ -38,19 +37,12 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Set content view
-    //    getActivity().setContentView(R.layout.fragment_report);
-        // setup buttons
-    //    mTestMe = (Button) getActivity().findViewById(R.id.button01);
-        // register listeners
-     //   mTestMe.setOnClickListener(this);
-
-   //     View rootView = inflater.inflate(R.layout.fragment_report, container, false);
-   //     return rootView;
-    //    Toast.makeText(getActivity(), "Changed to fragment_report", Toast.LENGTH_SHORT).show();
         rootView =  inflater.inflate(R.layout.fragment_report, container, false);
-       // getActivity().setContentView(R.layout.fragment_report);
+
+        // need to set content view
+        // setup button
         mTestMe = (Button) rootView.findViewById(R.id.button01);
+        // register listeners
         mTestMe.setOnClickListener(this);
         return rootView;
 
@@ -59,17 +51,8 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            Toast.makeText(getActivity(), "Test Report Fragment Visible ", Toast.LENGTH_SHORT).show();
-        }
-        if (isVisibleToUser) {
 
-            // Set content view
-           //     getActivity().setContentView(R.layout.fragment_report);
-            // setup buttons
-            //    mTestMe = (Button) getActivity().findViewById(R.id.button01);
-            // register listeners
-            //   mTestMe.setOnClickListener(this)
+        if (isVisibleToUser) {
 
             Log.d("SurveyorExpert", "Login Succeeded getting arguments");
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -103,16 +86,5 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
-/*
-       // String url = "";
-        EditText num=(EditText)getView().findViewById(R.id.EditText01);
-     //   Toast.makeText(ReportFragment.this, "Message : " , Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity().getApplicationContext(), "Message : This is it", Toast.LENGTH_SHORT).show();
-
-        String number = "tel:" + num.getText().toString().trim();
-         Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number));
-         startActivity(callIntent);
-         */
     }
-
 }
