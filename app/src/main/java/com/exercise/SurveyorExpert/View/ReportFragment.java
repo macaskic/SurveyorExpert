@@ -10,9 +10,7 @@
 
 package com.exercise.SurveyorExpert.View;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -20,8 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.exercise.AndroidViewPager.R;
@@ -32,6 +29,8 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences preferences = null;
     private SharedPreferences.Editor spEditor = null;
 
+
+    private Button  mTestMe;
     View rootView = null;
     private Bundle bundle = null;
     private String userId, userName, domain, ONLINE;
@@ -39,10 +38,21 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Set content view
+    //    getActivity().setContentView(R.layout.fragment_report);
+        // setup buttons
+    //    mTestMe = (Button) getActivity().findViewById(R.id.button01);
+        // register listeners
+     //   mTestMe.setOnClickListener(this);
+
    //     View rootView = inflater.inflate(R.layout.fragment_report, container, false);
    //     return rootView;
     //    Toast.makeText(getActivity(), "Changed to fragment_report", Toast.LENGTH_SHORT).show();
-        return inflater.inflate(R.layout.fragment_report, container, false);
+        rootView =  inflater.inflate(R.layout.fragment_report, container, false);
+       // getActivity().setContentView(R.layout.fragment_report);
+        mTestMe = (Button) rootView.findViewById(R.id.button01);
+        mTestMe.setOnClickListener(this);
+        return rootView;
 
     }
 
@@ -50,11 +60,18 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            Toast.makeText(getActivity(), "Report Fragment Visible ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Test Report Fragment Visible ", Toast.LENGTH_SHORT).show();
         }
         if (isVisibleToUser) {
 
-            Log.d("EXPERT", "Login Succeeded getting arguments");
+            // Set content view
+           //     getActivity().setContentView(R.layout.fragment_report);
+            // setup buttons
+            //    mTestMe = (Button) getActivity().findViewById(R.id.button01);
+            // register listeners
+            //   mTestMe.setOnClickListener(this)
+
+            Log.d("SurveyorExpert", "Login Succeeded getting arguments");
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             spEditor = preferences.edit();
 
@@ -76,24 +93,26 @@ public class ReportFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
 
-            case R.id.button:
-                TextView test=(TextView)getView().findViewById(R.id.textView);
-                test.setText("Hello");
-                Toast.makeText(getActivity().getApplicationContext(), "Message : ", Toast.LENGTH_SHORT).show();
+            case R.id.button01:
+             //   TextView test=(TextView)getView().findViewById(R.id.textView);
+             //   test.setText("Hello");
+             //   Toast.makeText(getActivity().getApplicationContext(), "Message : ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Button Pressed ", Toast.LENGTH_SHORT).show();
                 break;
 
             default:
                 break;
         }
-
+/*
        // String url = "";
         EditText num=(EditText)getView().findViewById(R.id.EditText01);
      //   Toast.makeText(ReportFragment.this, "Message : " , Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity().getApplicationContext(), "Message : ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity().getApplicationContext(), "Message : This is it", Toast.LENGTH_SHORT).show();
 
         String number = "tel:" + num.getText().toString().trim();
          Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number));
          startActivity(callIntent);
+         */
     }
 
 }
