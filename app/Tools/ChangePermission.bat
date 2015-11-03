@@ -1,4 +1,4 @@
-echo runnning commands
+echo running commands
 adb shell "su -c 'chmod 777 /data'"
 adb shell "su -c 'chmod 777 /data/data'"
 adb shell "su -c 'chmod 777 /data/data/com.exercise.SurveyorExpert'"
